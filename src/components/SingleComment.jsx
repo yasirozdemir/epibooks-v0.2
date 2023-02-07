@@ -1,17 +1,15 @@
-import { Component } from "react";
+import { useState } from "react";
 import { ListGroup, Button, Alert } from "react-bootstrap";
+const url = "https://striveschool-api.herokuapp.com/api/comments/";
 
-class SingleComment extends Component {
-  state = {
-    isDeleted: false,
-    isError: false,
-    url: "https://striveschool-api.herokuapp.com/api/comments/",
-    commentId: this.props.commentObj._id,
-  };
+const SingleComment = (props) => {
+  const [isDeleted, setIsDeleted] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [commentID, setCommentID] = useState(props.commentObj._id);
 
-  deleteComment = async () => {
+  const deleteComment = async () => {
     try {
-      const response = await fetch(this.state.url + this.state.commentId, {
+      const response = await fetch(url + commentID, {
         method: "DELETE",
         headers: {
           Authorization:
@@ -20,48 +18,31 @@ class SingleComment extends Component {
         },
       });
       if (response.ok) {
-        this.setState({
-          ...this.state,
-          isDeleted: true,
-        });
+        setIsDeleted(true);
       } else {
-        this.setState({
-          ...this.state,
-          isError: true,
-        });
+        setIsError(true);
       }
     } catch (error) {
-      this.setState({
-        ...this.state,
-        isError: true,
-      });
+      setIsError(true);
     }
   };
 
-  render() {
-    return (
-      <>
-        {this.state.isError && (
-          <Alert variant="danger">Comment couldn't deleted!</Alert>
-        )}
-        {this.state.isDeleted && (
-          <Alert variant="success">Comment succesfully deleted!</Alert>
-        )}
-        <ListGroup.Item className="mb-1">
-          <div className="mb-1 d-flex align-items-center">
-            ({this.props.commentObj.rate}) {this.props.commentObj.comment}
-            <Button
-              className="ml-auto"
-              variant="danger"
-              onClick={this.deleteComment}
-            >
-              X
-            </Button>
-          </div>
-        </ListGroup.Item>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {isError && <Alert variant="danger">Comment couldn't deleted!</Alert>}
+      {isDeleted && (
+        <Alert variant="success">Comment succesfully deleted!</Alert>
+      )}
+      <ListGroup.Item className="mb-1">
+        <div className="mb-1 d-flex align-items-center">
+          ({props.commentObj.rate}) {props.commentObj.comment}
+          <Button className="ml-auto" variant="danger" onClick={deleteComment}>
+            X
+          </Button>
+        </div>
+      </ListGroup.Item>
+    </>
+  );
+};
 
 export default SingleComment;
