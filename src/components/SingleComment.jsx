@@ -5,11 +5,10 @@ const url = "https://striveschool-api.herokuapp.com/api/comments/";
 const SingleComment = (props) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [commentID, setCommentID] = useState(props.commentObj._id);
 
   const deleteComment = async () => {
     try {
-      const response = await fetch(url + commentID, {
+      const response = await fetch(url + props.commentObj._id, {
         method: "DELETE",
         headers: {
           Authorization:
