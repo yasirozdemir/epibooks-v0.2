@@ -1,19 +1,17 @@
-import { Component } from "react";
 import { Alert, Spinner, ListGroup } from "react-bootstrap";
 import SingleComment from "./SingleComment";
 import AddingCommentSection from "./AddingCommentSection";
+import { useEffect, useState } from "react";
+const url = "https://striveschool-api.herokuapp.com/api/comments/";
 
-class CommentsSidebar extends Component {
-  state = {
-    comments: [],
-    isError: false,
-    isLoading: true,
-    url: "https://striveschool-api.herokuapp.com/api/comments/",
-  };
+const CommentsSidebar = (props) => {
+  const [comments, setComments] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  fetchComments = async () => {
+  const fetchComments = async () => {
     try {
-      const response = await fetch(this.state.url + this.props.bookID, {
+      const response = await fetch(url + props.bookID, {
         headers: {
           method: "GET",
           Authorization:
@@ -22,76 +20,59 @@ class CommentsSidebar extends Component {
       });
       if (response.ok) {
         const commentData = await response.json();
-
-        this.setState({
-          ...this.state,
-          comments: commentData,
-          isLoading: false,
-        });
+        setComments(commentData);
+        setIsLoading(false);
       } else {
-        this.setState({
-          ...this.state,
-          isError: true,
-          isLoading: false,
-        });
+        setIsError(true);
+        setIsLoading(false);
       }
     } catch (error) {
-      this.setState({
-        ...this.state,
-        isError: true,
-        isLoading: false,
-      });
+      setIsError(true);
+      setIsLoading(false);
     }
   };
 
-  componentDidMount() {
-    this.fetchComments();
-  }
+  useEffect(() => {
+    fetchComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.bookID]);
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.bookID !== this.props.bookID) {
-      this.fetchComments();
-    }
-  };
+  return (
+    <div id="commentsSidebar" className="col-3 p-3 mb-4">
+      <h6>Comments Section</h6>
+      {isLoading && <Spinner animation="border" variant="dark" />}
+      {isError && (
+        <Alert variant="danger">
+          Somethwing went wrong while loading comments!
+        </Alert>
+      )}
 
-  render() {
-    return (
-      <div id="commentsSidebar" className="col-3 p-3 mb-4">
-        <h6>Comments Section</h6>
-        {this.state.isLoading && <Spinner animation="border" variant="dark" />}
-        {this.state.isError && (
-          <Alert variant="danger">
-            Somethwing went wrong while loading comments!
+      {props.bookID && (
+        <>
+          <ListGroup>
+            {comments.map((commentObj) => {
+              return (
+                <SingleComment key={commentObj._id} commentObj={commentObj} />
+              );
+            })}
+            {comments.length < 1 && (
+              <ListGroup.Item>
+                There is no comment for this book.
+              </ListGroup.Item>
+            )}
+          </ListGroup>
+          <AddingCommentSection bookID={props.bookID} />
+        </>
+      )}
+      {!props.bookID && !isError && (
+        <>
+          <Alert className="m-0" variant="warning">
+            Select a book to see comments!
           </Alert>
-        )}
-
-        {this.props.bookID && (
-          <>
-            <ListGroup>
-              {this.state.comments.map((commentObj) => {
-                return (
-                  <SingleComment key={commentObj._id} commentObj={commentObj} />
-                );
-              })}
-              {this.state.comments.length < 1 && (
-                <ListGroup.Item>
-                  There is no comment for this book.
-                </ListGroup.Item>
-              )}
-            </ListGroup>
-            <AddingCommentSection bookID={this.props.bookID} />
-          </>
-        )}
-        {!this.props.bookID && (
-          <>
-            <Alert className="m-0" variant="warning">
-              Select a book to see comments!
-            </Alert>
-          </>
-        )}
-      </div>
-    );
-  }
-}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default CommentsSidebar;
