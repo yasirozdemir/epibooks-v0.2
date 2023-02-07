@@ -1,0 +1,79 @@
+body {
+  background-image: url(https://images.pexels.com/photos/139306/pexels-photo-139306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  background-size: contain;
+  backdrop-filter: blur(2px);
+}
+
+.jumbotron {
+  background-image: url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.333);
+}
+
+.jumbotron h1,
+.jumbotron p {
+  text-shadow: 0 0 5px rgb(0, 0, 0);
+}
+
+.jumbotron h1 {
+  font-weight: 700;
+  font-size: 2.8rem;
+}
+
+.jumbotron p {
+  max-width: 700px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.jumbotron::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(204, 204, 204, 0.26);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.bookCard {
+  max-height: 400px;
+  padding-top: 0.5rem;
+  user-select: none;
+}
+
+.bookCard .card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 10px;
+}
+
+.bookCard img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+}
+
+.bookCard.selected,
+.commentsArea {
+  background-color: rgb(144, 188, 240);
+}
+
+.commentsArea {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.233);
+  margin-top: 5px;
+  position: absolute;
+  z-index: 1000;
+  right: 15px;
+  left: 15px;
+}
+
+.genreBtn {
+  min-width: 100px;
+}
