@@ -73,7 +73,7 @@ class CommentsSidebar extends Component {
                   <SingleComment key={commentObj._id} commentObj={commentObj} />
                 );
               })}
-              {this.state.comments === [] && (
+              {this.state.comments.length < 1 && (
                 <ListGroup.Item>
                   There is no comment for this book.
                 </ListGroup.Item>
