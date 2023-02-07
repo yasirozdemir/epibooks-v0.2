@@ -5,6 +5,8 @@ import MyNav from "./components/MyNav";
 import MyFooter from "./components/MyFooter.jsx";
 import Welcome from "./components/Welcome.jsx";
 import BookList from "./components/BookList";
+import CommentsSidebar from "./components/CommentsSidebar";
+import { Container, Row } from "react-bootstrap";
 
 function App() {
   return (
@@ -16,7 +18,12 @@ function App() {
         Sagan"
       />
       {/* <AllTheBooks /> */}
-      <BookList />
+      <Container fluid>
+        <Row>
+          <BookList />
+          <CommentsSidebar />
+        </Row>
+      </Container>
       <MyFooter />
     </div>
   );
