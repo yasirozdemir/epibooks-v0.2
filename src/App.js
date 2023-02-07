@@ -20,7 +20,6 @@ const App = () => {
         someone dead for 1,000 years. To read is to voyage through time.' - Carl
         Sagan"
       />
-      {/* <AllTheBooks /> */}
       <Container fluid>
         <Row className="justify-content-around">
           <BookList setBookID={setBookID} />
