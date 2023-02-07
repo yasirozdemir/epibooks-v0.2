@@ -15,7 +15,6 @@ class AddingCommentSection extends Component {
 
   postComment = async () => {
     try {
-      console.log(this.props.bookID);
       const response = await fetch(this.state.url, {
         method: "POST",
         body: JSON.stringify(this.state.newComment),
@@ -25,7 +24,6 @@ class AddingCommentSection extends Component {
           "Content-Type": "application/json",
         },
       });
-      console.log(response);
       if (response.ok) {
         this.setState({
           ...this.state,

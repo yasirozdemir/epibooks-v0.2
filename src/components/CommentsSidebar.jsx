@@ -29,7 +29,6 @@ class CommentsSidebar extends Component {
           isLoading: false,
         });
       } else {
-        console.log("error");
         this.setState({
           ...this.state,
           isError: true,
@@ -37,7 +36,6 @@ class CommentsSidebar extends Component {
         });
       }
     } catch (error) {
-      console.error(error.message);
       this.setState({
         ...this.state,
         isError: true,
@@ -50,7 +48,7 @@ class CommentsSidebar extends Component {
     this.fetchComments();
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (prevProps) => {
     if (prevProps.bookID !== this.props.bookID) {
       this.fetchComments();
     }
@@ -75,8 +73,20 @@ class CommentsSidebar extends Component {
                   <SingleComment key={commentObj._id} commentObj={commentObj} />
                 );
               })}
+              {this.state.comments.length === 0 && (
+                <ListGroup.Item>
+                  There is no comment for this book.
+                </ListGroup.Item>
+              )}
             </ListGroup>
             <AddingCommentSection bookID={this.props.bookID} />
+          </>
+        )}
+        {!this.props.bookID && (
+          <>
+            <Alert className="m-0" variant="warning">
+              Select a book to see comments!
+            </Alert>
           </>
         )}
       </div>

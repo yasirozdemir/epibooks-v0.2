@@ -82,6 +82,9 @@ body {
   background-color: #fefefe71;
   border-radius: 0.25rem;
   user-select: none;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
 }
 
 #commentsSidebar h6 {
