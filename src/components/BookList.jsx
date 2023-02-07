@@ -107,7 +107,11 @@ class BookList extends Component {
             {this.state.booksArray.map((book) => {
               return (
                 book.title.toLowerCase().includes(this.state.searchQuery) && (
-                  <SingleBook key={book.asin} book={book} />
+                  <SingleBook
+                    setBookID={this.props.setBookID}
+                    key={book.asin}
+                    book={book}
+                  />
                 )
               );
             })}

@@ -12,10 +12,12 @@ class SingleBook extends Component {
       <Col xs={10} sm={6} md={4} lg={3} className="mb-3">
         <Card
           onClick={() => {
+            this.props.setBookID(this.props.book.asin);
             if (this.state.selected) {
               this.setState({
                 selected: false,
               });
+              this.props.setBookID(undefined);
             } else {
               this.setState({
                 selected: true,

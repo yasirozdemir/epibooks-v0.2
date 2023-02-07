@@ -7,7 +7,7 @@ class AddingCommentSection extends Component {
     newComment: {
       comment: "",
       rate: 0,
-      elementId: this.props.bookAsin,
+      elementId: this.props.bookID,
     },
     isError: false,
     isUploaded: false,
@@ -15,7 +15,7 @@ class AddingCommentSection extends Component {
 
   postComment = async () => {
     try {
-      console.log(this.props.bookAsin);
+      console.log(this.props.bookID);
       const response = await fetch(this.state.url, {
         method: "POST",
         body: JSON.stringify(this.state.newComment),
@@ -53,7 +53,7 @@ class AddingCommentSection extends Component {
   render() {
     return (
       <>
-        <h6>Add comment</h6>
+        <h6 className="mt-2">Add comment</h6>
         {this.state.isError && (
           <Alert variant="danger">
             The comment couldn't saved. Please try again!
@@ -84,8 +84,8 @@ class AddingCommentSection extends Component {
               }}
             />
           </FormGroup>
-          <FormGroup>
-            <label htmlFor="rateInput">Rate</label>
+          <FormGroup className="d-flex align-items-center">
+            <label htmlFor="rateInput">Rate:</label>
             <input
               className="ml-2 w-50"
               type="number"
@@ -104,10 +104,10 @@ class AddingCommentSection extends Component {
                 });
               }}
             />
+            <Button className="ml-auto" type="submit" variant="dark">
+              Send
+            </Button>
           </FormGroup>
-          <Button type="submit" variant="dark">
-            Send
-          </Button>
         </Form>
       </>
     );

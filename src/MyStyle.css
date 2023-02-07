@@ -79,7 +79,11 @@ body {
 }
 
 #commentsSidebar {
-  background-color: #fefefe;
+  background-color: #fefefe71;
   border-radius: 0.25rem;
   user-select: none;
+}
+
+#commentsSidebar h6 {
+  border-bottom: solid 0.5px rgba(0, 0, 0, 0.3);
 }
