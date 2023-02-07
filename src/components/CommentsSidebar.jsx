@@ -1,4 +1,4 @@
-import { Alert, Spinner, ListGroup } from "react-bootstrap";
+import { Alert, ListGroup } from "react-bootstrap";
 import SingleComment from "./SingleComment";
 import AddingCommentSection from "./AddingCommentSection";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ const url = "https://striveschool-api.herokuapp.com/api/comments/";
 const CommentsSidebar = (props) => {
   const [comments, setComments] = useState([]);
   const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const fetchComments = async () => {
     try {
@@ -22,15 +22,15 @@ const CommentsSidebar = (props) => {
         if (response.ok) {
           const commentData = await response.json();
           setComments(commentData);
-          setIsLoading(false);
+          // setIsLoading(false);
         } else {
           setIsError(true);
-          setIsLoading(false);
+          // setIsLoading(false);
         }
       }
     } catch (error) {
       setIsError(true);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
