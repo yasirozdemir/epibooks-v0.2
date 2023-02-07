@@ -11,20 +11,22 @@ const CommentsSidebar = (props) => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(url + props.bookID, {
-        headers: {
-          method: "GET",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M5MzgxYWU3MzczODAwMTUzNzQzN2MiLCJpYXQiOjE2NzUzNDI4NzAsImV4cCI6MTY3NjU1MjQ3MH0.XvSJCouk9YeDJk4keaXoIOlB-nkCaRWTmZAqhXXgSGQ",
-        },
-      });
-      if (response.ok) {
-        const commentData = await response.json();
-        setComments(commentData);
-        setIsLoading(false);
-      } else {
-        setIsError(true);
-        setIsLoading(false);
+      if (props.bookID) {
+        const response = await fetch(url + props.bookID, {
+          headers: {
+            method: "GET",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M5MzgxYWU3MzczODAwMTUzNzQzN2MiLCJpYXQiOjE2NzUzNDI4NzAsImV4cCI6MTY3NjU1MjQ3MH0.XvSJCouk9YeDJk4keaXoIOlB-nkCaRWTmZAqhXXgSGQ",
+          },
+        });
+        if (response.ok) {
+          const commentData = await response.json();
+          setComments(commentData);
+          setIsLoading(false);
+        } else {
+          setIsError(true);
+          setIsLoading(false);
+        }
       }
     } catch (error) {
       setIsError(true);
