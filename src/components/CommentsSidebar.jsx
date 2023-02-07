@@ -42,7 +42,7 @@ const CommentsSidebar = (props) => {
   return (
     <div id="commentsSidebar" className="col-3 p-3 mb-4">
       <h6>Comments Section</h6>
-      {isLoading && <Spinner animation="border" variant="dark" />}
+      {/* {isLoading && <Spinner animation="border" variant="dark" />} */}
       {isError && (
         <Alert variant="danger">
           Somethwing went wrong while loading comments!
